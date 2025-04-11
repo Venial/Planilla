@@ -1,0 +1,182 @@
+body {
+  background-color: #f8f9fa;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding-bottom: 20px;
+}
+
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  margin-bottom: 20px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-header {
+  font-weight: bold;
+}
+
+.table th {
+  background-color: #f1f1f1;
+}
+
+.btn {
+  font-weight: 500;
+}
+
+.form-control,
+.form-select {
+  border-radius: 0.25rem;
+}
+
+/* Estilos para secciones colapsables */
+.card-header[data-bs-toggle="collapse"] {
+  cursor: pointer;
+}
+
+.card-header[data-bs-toggle="collapse"] .bi {
+  transition: transform 0.3s;
+}
+
+.card-header[data-bs-toggle="collapse"].collapsed .bi {
+  transform: rotate(-90deg);
+}
+
+/* Estilos para impresión */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .print-section,
+  .print-section * {
+    visibility: visible;
+  }
+
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+
+  .card {
+    border: none;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+
+  .container-fluid {
+    padding: 0;
+  }
+
+  body {
+    padding: 0;
+    font-size: 12px;
+  }
+
+  .table {
+    font-size: 11px;
+  }
+
+  .card-header {
+    background-color: #f1f1f1 !important;
+    color: #000 !important;
+    padding: 5px 10px;
+  }
+
+  .card-body {
+    padding: 10px;
+  }
+
+  .table th,
+  .table td {
+    padding: 4px;
+  }
+}
+
+/* Colores específicos */
+.bg-success {
+  background-color: #28a745 !important;
+}
+
+.bg-danger {
+  background-color: #dc3545 !important;
+}
+
+.bg-warning {
+  background-color: #ffc107 !important;
+}
+
+/* Estilos para botones */
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: #212529;
+}
+
+/* Estilos para tablas */
+.table-primary {
+  background-color: #cfe2ff;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 20px;
+  }
+
+  .row > div {
+    margin-bottom: 15px;
+  }
+}
+
+/* Estilos para campos de solo lectura */
+.readonly-input {
+  background-color: #f8f9fa;
+  cursor: not-allowed;
+}
+
+/* Estilos para botones de edición */
+.edit-btn {
+  width: 38px;
+}
+
+/* Estilos para el textarea de observaciones */
+#observaciones {
+  resize: vertical;
+  min-height: 100px;
+  background-color: #f8f9fa;
+}
+
+/* Estilo para textarea en modo lectura */
+#observaciones[readonly] {
+  background-color: #f8f9fa;
+  cursor: not-allowed;
+}
+
+/* Estilo para textarea en modo edición */
+#observaciones:not([readonly]) {
+  background-color: white;
+  cursor: text;
+}
+
+/* Estilos para botones de observaciones */
+#edit-observaciones-btn,
+#save-observaciones-btn {
+  height: 38px;
+}
