@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
     balanceInicial: 0,
     balanceCierre: 0,
     efectivoCaja: 0,
-    totalOperaciones: 0,
     ventaSistema: 0,
     observaciones: "",
   };
@@ -19,16 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const balanceInicialInput = document.getElementById("balance-inicial");
   const balanceCierreInput = document.getElementById("balance-cierre");
   const efectivoCajaInput = document.getElementById("efectivo-caja");
-  const totalOperacionesInput = document.getElementById("total-operaciones");
   const ventaSistemaInput = document.getElementById("venta-sistema");
-  const diferenciaBalanceElement =
-    document.getElementById("diferencia-balance");
+  const diferenciaBalanceElement = document.getElementById("diferencia-balance");
   const totalOnlineElement = document.getElementById("total-online");
   const totalPosnetElement = document.getElementById("total-posnet");
   const totalEgresosElement = document.getElementById("total-egresos");
   const totalCalculadoElement = document.getElementById("total-calculado");
-  const diferenciaSistemaElement =
-    document.getElementById("diferencia-sistema");
+  const totalSistemaElement = document.getElementById("total-sistema");
+  const diferenciaSistemaElement = document.getElementById("diferencia-sistema");
   const listaOnline = document.getElementById("lista-online");
   const listaPosnet = document.getElementById("lista-posnet");
   const listaEgresos = document.getElementById("lista-egresos");
@@ -36,42 +33,55 @@ document.addEventListener("DOMContentLoaded", function () {
   const totalMontoOnline = document.getElementById("total-monto-online");
   const totalOpsPosnet = document.getElementById("total-ops-posnet");
   const totalMontoPosnet = document.getElementById("total-monto-posnet");
-  const totalOpsEgresos = document.getElementById("total-ops-egresos");
   const totalMontoEgresos = document.getElementById("total-monto-egresos");
-  // Elementos del DOM para observaciones
   const observacionesInput = document.getElementById("observaciones");
   const observacionesPrint = document.getElementById("observaciones-print");
-  const editObservacionesBtn = document.getElementById(
-    "edit-observaciones-btn"
-  );
-  const saveObservacionesBtn = document.getElementById(
-    "save-observaciones-btn"
-  );
+  const editObservacionesBtn = document.getElementById("edit-observaciones-btn");
+  const saveObservacionesBtn = document.getElementById("save-observaciones-btn");
+  const fechaPlanillaInput = document.getElementById("fecha-planilla");
+  const fechaDisplayElement = document.getElementById("fecha-display");
+  const filtroOnline = document.getElementById("filtro-online");
+  const filtroPosnet = document.getElementById("filtro-posnet");
+  const filtroEgresos = document.getElementById("filtro-egresos");
+
+  // Configurar fecha actual por defecto
+  const today = new Date();
+  const dateStr = today.toISOString().split('T')[0];
+  fechaPlanillaInput.value = dateStr;
+  fechaDisplayElement.textContent = formatDate(dateStr);
+
+  // Evento para actualizar fecha display
+  fechaPlanillaInput.addEventListener('change', function() {
+    fechaDisplayElement.textContent = formatDate(this.value);
+  });
 
   // Configurar eventos para observaciones
   editObservacionesBtn.addEventListener("click", function () {
-    // Habilitar edición
     observacionesInput.readOnly = false;
     observacionesInput.focus();
-
-    // Mostrar botón de guardar y ocultar de editar
     editObservacionesBtn.style.display = "none";
     saveObservacionesBtn.style.display = "block";
   });
 
   saveObservacionesBtn.addEventListener("click", function () {
-    // Deshabilitar edición
     observacionesInput.readOnly = true;
-
-    // Actualizar la versión para imprimir
     observacionesPrint.textContent = observacionesInput.value;
-
-    // Mostrar botón de editar y ocultar de guardar
     editObservacionesBtn.style.display = "block";
     saveObservacionesBtn.style.display = "none";
-
-    // Guardar en datosPrincipales
     datosPrincipales.observaciones = observacionesInput.value;
+  });
+
+  // Configurar eventos para filtros
+  filtroOnline.addEventListener('change', function() {
+    actualizarListaOnline();
+  });
+
+  filtroPosnet.addEventListener('change', function() {
+    actualizarListaPosnet();
+  });
+
+  filtroEgresos.addEventListener('change', function() {
+    actualizarListaEgresos();
   });
 
   // Configurar campos de datos principales como readonly inicialmente
@@ -86,17 +96,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const metodo = document.getElementById("metodo-online").value;
     const monto = parseFloat(document.getElementById("monto-online").value);
-    const operaciones = parseInt(
-      document.getElementById("operaciones-online").value
-    );
-    const descripcion =
-      document.getElementById("descripcion-online").value || "Pago online";
+    const operaciones = parseInt(document.getElementById("operaciones-online").value);
 
     agregarMovimientoOnline({
       metodo: metodo,
       monto: monto,
       operaciones: operaciones,
-      descripcion: descripcion,
       fecha: new Date(),
     });
 
@@ -109,17 +114,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const tipoTarjeta = document.getElementById("tipo-posnet").value;
     const monto = parseFloat(document.getElementById("monto-posnet").value);
-    const operaciones = parseInt(
-      document.getElementById("operaciones-posnet").value
-    );
-    const descripcion =
-      document.getElementById("descripcion-posnet").value || "Pago POSNET";
+    const operaciones = parseInt(document.getElementById("operaciones-posnet").value);
 
     agregarMovimientoPosnet({
       tipoTarjeta: tipoTarjeta,
       monto: monto,
       operaciones: operaciones,
-      descripcion: descripcion,
       fecha: new Date(),
     });
 
@@ -132,15 +132,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const metodo = document.getElementById("metodo-egreso").value;
     const monto = parseFloat(document.getElementById("monto-egreso").value);
-    const operaciones =
-      parseInt(document.getElementById("operaciones-egreso").value) || 0;
-    const concepto =
-      document.getElementById("concepto-egreso").value || "Egreso";
+    const concepto = document.getElementById("concepto-egreso").value || "Egreso";
 
     agregarMovimientoEgreso({
       metodo: metodo,
       monto: monto,
-      operaciones: operaciones,
       concepto: concepto,
       fecha: new Date(),
     });
@@ -148,60 +144,49 @@ document.addEventListener("DOMContentLoaded", function () {
     this.reset();
   });
 
+  // Función para formatear fecha
+  function formatDate(dateStr) {
+    if (!dateStr) return '-';
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('es-AR');
+  }
+
   // Función para configurar campos readonly
   function setupReadonlyFields() {
     balanceInicialInput.readOnly = true;
     balanceCierreInput.readOnly = true;
     efectivoCajaInput.readOnly = true;
-    totalOperacionesInput.readOnly = true;
     ventaSistemaInput.readOnly = true;
     observacionesInput.readOnly = true;
 
     balanceInicialInput.classList.add("readonly-input");
     balanceCierreInput.classList.add("readonly-input");
     efectivoCajaInput.classList.add("readonly-input");
-    totalOperacionesInput.classList.add("readonly-input");
     ventaSistemaInput.classList.add("readonly-input");
     observacionesInput.classList.add("readonly-input");
   }
 
   // Función para configurar botones de edición
   function setupEditButtons() {
-    document
-      .getElementById("edit-balance-inicial")
-      .addEventListener("click", function () {
-        toggleEditField(balanceInicialInput, "balanceInicial");
-      });
+    document.getElementById("edit-balance-inicial").addEventListener("click", function () {
+      toggleEditField(balanceInicialInput, "balanceInicial");
+    });
 
-    document
-      .getElementById("edit-balance-cierre")
-      .addEventListener("click", function () {
-        toggleEditField(balanceCierreInput, "balanceCierre");
-      });
+    document.getElementById("edit-balance-cierre").addEventListener("click", function () {
+      toggleEditField(balanceCierreInput, "balanceCierre");
+    });
 
-    document
-      .getElementById("edit-efectivo-caja")
-      .addEventListener("click", function () {
-        toggleEditField(efectivoCajaInput, "efectivoCaja");
-      });
+    document.getElementById("edit-efectivo-caja").addEventListener("click", function () {
+      toggleEditField(efectivoCajaInput, "efectivoCaja");
+    });
 
-    document
-      .getElementById("edit-total-operaciones")
-      .addEventListener("click", function () {
-        toggleEditField(totalOperacionesInput, "totalOperaciones");
-      });
+    document.getElementById("edit-venta-sistema").addEventListener("click", function () {
+      toggleEditField(ventaSistemaInput, "ventaSistema");
+    });
 
-    document
-      .getElementById("edit-venta-sistema")
-      .addEventListener("click", function () {
-        toggleEditField(ventaSistemaInput, "ventaSistema");
-      });
-
-    document
-      .getElementById("edit-observaciones")
-      .addEventListener("click", function () {
-        toggleEditField(observacionesInput, "observaciones");
-      });
+    document.getElementById("edit-observaciones").addEventListener("click", function () {
+      toggleEditField(observacionesInput, "observaciones");
+    });
   }
 
   // Función para alternar entre modo edición y readonly
@@ -213,11 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       field.readOnly = true;
       field.classList.add("readonly-input");
-      // Actualizar el valor en datosPrincipales
-      datosPrincipales[fieldName] =
-        fieldName === "observaciones"
-          ? field.value
-          : parseFloat(field.value) || 0;
+      datosPrincipales[fieldName] = fieldName === "observaciones" ? field.value : parseFloat(field.value) || 0;
       actualizarCalculos();
     }
   }
@@ -243,19 +224,23 @@ document.addEventListener("DOMContentLoaded", function () {
     actualizarCalculos();
   }
 
-  // Función para actualizar lista online
+  // Función para actualizar lista online con filtro
   function actualizarListaOnline() {
     listaOnline.innerHTML = "";
+
+    const filtro = filtroOnline.value;
+    const movimientosFiltrados = filtro 
+      ? movimientosOnline.filter(m => m.metodo === filtro)
+      : movimientosOnline;
 
     let totalOps = 0;
     let totalMonto = 0;
 
-    movimientosOnline.forEach((mov, index) => {
+    movimientosFiltrados.forEach((mov, index) => {
       const row = document.createElement("tr");
 
       row.innerHTML = `
         <td>${formatNombreMetodo(mov.metodo)}</td>
-        <td>${mov.descripcion}</td>
         <td>${mov.operaciones}</td>
         <td class="text-success">$${mov.monto.toFixed(2)}</td>
         <td class="no-print">
@@ -270,23 +255,31 @@ document.addEventListener("DOMContentLoaded", function () {
       totalMonto += mov.monto;
     });
 
-    totalOpsOnline.textContent = totalOps;
-    totalMontoOnline.textContent = `$${totalMonto.toFixed(2)}`;
+    // Actualizar totales (siempre con todos los movimientos, no solo los filtrados)
+    const totalOpsAll = movimientosOnline.reduce((sum, m) => sum + m.operaciones, 0);
+    const totalMontoAll = movimientosOnline.reduce((sum, m) => sum + m.monto, 0);
+    
+    totalOpsOnline.textContent = totalOpsAll;
+    totalMontoOnline.textContent = `$${totalMontoAll.toFixed(2)}`;
   }
 
-  // Función para actualizar lista POSNET
+  // Función para actualizar lista POSNET con filtro
   function actualizarListaPosnet() {
     listaPosnet.innerHTML = "";
+
+    const filtro = filtroPosnet.value;
+    const movimientosFiltrados = filtro 
+      ? movimientosPosnet.filter(m => m.tipoTarjeta === filtro)
+      : movimientosPosnet;
 
     let totalOps = 0;
     let totalMonto = 0;
 
-    movimientosPosnet.forEach((mov, index) => {
+    movimientosFiltrados.forEach((mov, index) => {
       const row = document.createElement("tr");
 
       row.innerHTML = `
         <td>${formatNombreMetodo(mov.tipoTarjeta)}</td>
-        <td>${mov.descripcion}</td>
         <td>${mov.operaciones}</td>
         <td class="text-success">$${mov.monto.toFixed(2)}</td>
         <td class="no-print">
@@ -301,24 +294,31 @@ document.addEventListener("DOMContentLoaded", function () {
       totalMonto += mov.monto;
     });
 
-    totalOpsPosnet.textContent = totalOps;
-    totalMontoPosnet.textContent = `$${totalMonto.toFixed(2)}`;
+    // Actualizar totales (siempre con todos los movimientos, no solo los filtrados)
+    const totalOpsAll = movimientosPosnet.reduce((sum, m) => sum + m.operaciones, 0);
+    const totalMontoAll = movimientosPosnet.reduce((sum, m) => sum + m.monto, 0);
+    
+    totalOpsPosnet.textContent = totalOpsAll;
+    totalMontoPosnet.textContent = `$${totalMontoAll.toFixed(2)}`;
   }
 
-  // Función para actualizar lista egresos
+  // Función para actualizar lista egresos con filtro
   function actualizarListaEgresos() {
     listaEgresos.innerHTML = "";
 
-    let totalOps = 0;
+    const filtro = filtroEgresos.value;
+    const movimientosFiltrados = filtro 
+      ? movimientosEgresos.filter(m => m.metodo === filtro)
+      : movimientosEgresos;
+
     let totalMonto = 0;
 
-    movimientosEgresos.forEach((mov, index) => {
+    movimientosFiltrados.forEach((mov, index) => {
       const row = document.createElement("tr");
 
       row.innerHTML = `
         <td>${formatNombreMetodo(mov.metodo)}</td>
         <td>${mov.concepto}</td>
-        <td>${mov.operaciones}</td>
         <td class="text-danger">$${mov.monto.toFixed(2)}</td>
         <td class="no-print">
           <button class="btn btn-sm btn-outline-danger" onclick="eliminarMovimientoEgreso(${index})">
@@ -328,24 +328,20 @@ document.addEventListener("DOMContentLoaded", function () {
       `;
       listaEgresos.appendChild(row);
 
-      totalOps += mov.operaciones;
       totalMonto += mov.monto;
     });
 
-    totalOpsEgresos.textContent = totalOps;
-    totalMontoEgresos.textContent = `$${totalMonto.toFixed(2)}`;
+    // Actualizar totales (siempre con todos los movimientos, no solo los filtrados)
+    const totalMontoAll = movimientosEgresos.reduce((sum, m) => sum + m.monto, 0);
+    totalMontoEgresos.textContent = `$${totalMontoAll.toFixed(2)}`;
   }
 
   // Función para actualizar todos los cálculos
   function actualizarCalculos() {
-    // ... (resto del código existente)
     // Actualizar datos principales
-    datosPrincipales.balanceInicial =
-      parseFloat(balanceInicialInput.value) || 0;
+    datosPrincipales.balanceInicial = parseFloat(balanceInicialInput.value) || 0;
     datosPrincipales.balanceCierre = parseFloat(balanceCierreInput.value) || 0;
     datosPrincipales.efectivoCaja = parseFloat(efectivoCajaInput.value) || 0;
-    datosPrincipales.totalOperaciones =
-      parseInt(totalOperacionesInput.value) || 0;
     datosPrincipales.ventaSistema = parseFloat(ventaSistemaInput.value) || 0;
     datosPrincipales.observaciones = observacionesInput.value;
 
@@ -353,38 +349,30 @@ document.addEventListener("DOMContentLoaded", function () {
     observacionesPrint.textContent = datosPrincipales.observaciones;
 
     // Calcular diferencia de balance
-    const diferenciaBalance =
-      datosPrincipales.balanceCierre - datosPrincipales.balanceInicial;
+    const diferenciaBalance = datosPrincipales.balanceCierre - datosPrincipales.balanceInicial;
     diferenciaBalanceElement.textContent = `$${diferenciaBalance.toFixed(2)}`;
-    diferenciaBalanceElement.className =
-      diferenciaBalance >= 0 ? "text-success" : "text-danger";
+    diferenciaBalanceElement.className = diferenciaBalance >= 0 ? "text-success" : "text-danger";
 
     // Calcular totales por categoría
     const totalOnline = movimientosOnline.reduce((sum, m) => sum + m.monto, 0);
     const totalPosnet = movimientosPosnet.reduce((sum, m) => sum + m.monto, 0);
-    const totalEgresos = movimientosEgresos.reduce(
-      (sum, m) => sum + m.monto,
-      0
-    );
+    const totalEgresos = movimientosEgresos.reduce((sum, m) => sum + m.monto, 0);
 
     totalOnlineElement.textContent = `$${totalOnline.toFixed(2)}`;
     totalPosnetElement.textContent = `$${totalPosnet.toFixed(2)}`;
     totalEgresosElement.textContent = `$${totalEgresos.toFixed(2)}`;
 
-    // Calcular total calculado
-    const totalCalculado =
-      diferenciaBalance +
-      datosPrincipales.efectivoCaja +
-      totalOnline +
-      totalPosnet -
-      totalEgresos;
+    // Calcular total calculado según la fórmula solicitada
+    const totalCalculado = diferenciaBalance + totalOnline + totalPosnet + totalEgresos + datosPrincipales.efectivoCaja;
     totalCalculadoElement.textContent = `$${totalCalculado.toFixed(2)}`;
+
+    // Mostrar total sistema (venta del sistema)
+    totalSistemaElement.textContent = `$${datosPrincipales.ventaSistema.toFixed(2)}`;
 
     // Calcular diferencia con sistema
     const diferenciaSistema = totalCalculado - datosPrincipales.ventaSistema;
     diferenciaSistemaElement.textContent = `$${diferenciaSistema.toFixed(2)}`;
-    diferenciaSistemaElement.className =
-      diferenciaSistema >= 0 ? "text-success" : "text-danger";
+    diferenciaSistemaElement.className = diferenciaSistema >= 0 ? "text-success" : "text-danger";
   }
 
   // Función para formatear nombres de métodos
@@ -414,11 +402,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Función para imprimir
-  document
-    .getElementById("btn-imprimir")
-    .addEventListener("click", function () {
-      window.print();
-    });
+  document.getElementById("btn-imprimir").addEventListener("click", function () {
+    window.print();
+  });
 
   // Funciones globales para eliminar movimientos
   window.eliminarMovimientoOnline = function (index) {

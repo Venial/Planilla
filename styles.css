@@ -93,6 +93,11 @@ body {
   .table td {
     padding: 4px;
   }
+
+  /* Estilo para la fecha en impresión */
+  #fecha-display {
+    font-weight: bold;
+  }
 }
 
 /* Colores específicos */
@@ -179,4 +184,24 @@ body {
 #edit-observaciones-btn,
 #save-observaciones-btn {
   height: 38px;
+}
+
+/* Estilos para los totales en la sección de cálculos */
+#total-calculado,
+#total-sistema,
+#diferencia-sistema {
+  font-weight: bold;
+}
+
+.text-success {
+  color: #28a745 !important;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}
+
+/* Estilos para los filtros */
+.card-header select {
+  margin-left: 10px;
 }
