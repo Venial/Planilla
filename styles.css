@@ -205,3 +205,18 @@ body {
 .card-header select {
   margin-left: 10px;
 }
+
+/* Nuevos estilos para botones de guardado/carga */
+#btn-guardar {
+  margin-right: 10px;
+}
+
+.input-group {
+  max-width: 300px;
+}
+
+/* Para el selector de fecha */
+#buscar-fecha {
+  background-color: white;
+  cursor: pointer;
+}
