@@ -101,27 +101,38 @@ body {
 }
 
 /* Colores específicos */
-.bg-success {
-  background-color: #28a745 !important;
+.bg-primary {
+  background-color: #0d6efd !important;
 }
-
+.bg-success {
+  background-color: #198754 !important;
+}
 .bg-danger {
   background-color: #dc3545 !important;
 }
-
 .bg-warning {
   background-color: #ffc107 !important;
 }
-
-/* Estilos para botones */
-.btn-success {
-  background-color: #28a745;
-  border-color: #28a745;
+.bg-info {
+  background-color: #0dcaf0 !important;
+}
+.bg-secondary {
+  background-color: #6c757d !important;
 }
 
-.btn-danger {
-  background-color: #dc3545;
-  border-color: #dc3545;
+.btn-success {
+  background-color: #198754;
+  border-color: #198754;
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-light {
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
 }
 
 .btn-warning {
@@ -206,7 +217,7 @@ body {
   margin-left: 10px;
 }
 
-/* Nuevos estilos para botones de guardado/carga */
+/* Ajustes para los botones de guardar/cargar */
 #btn-guardar {
   margin-right: 10px;
 }
@@ -219,4 +230,15 @@ body {
 #buscar-fecha {
   background-color: white;
   cursor: pointer;
+}
+
+/* Ajustes para la fecha */
+#fecha-display {
+  font-weight: bold;
+}
+
+/* Ajustes para los botones de acción en tablas */
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
 }
