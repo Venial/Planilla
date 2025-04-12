@@ -1,295 +1,98 @@
-body {
-  background-color: #f8f9fa;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  padding-bottom: 20px;
+:root {
+  --primary-color: #0d6efd;
+  --secondary-color: #6c757d;
+  --success-color: #198754;
+  --info-color: #0dcaf0;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
 }
 
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+}
+
+/* Navbar estilizada */
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-weight: 600;
+}
+
+/* Cards mejoradas */
 .card {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
-  margin-bottom: 20px;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  transition: transform 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-2px);
 }
 
 .card-header {
-  font-weight: bold;
+  font-weight: 600;
+  border-radius: 0.5rem 0.5rem 0 0 !important;
 }
 
-.table th {
-  background-color: #f1f1f1;
+/* Lista de cálculos */
+.calculos-list,
+.calculos-resultados {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 0.5rem;
 }
 
-.btn {
-  font-weight: 500;
-}
-
+/* Inputs mejorados */
 .form-control,
 .form-select {
   border-radius: 0.25rem;
+  padding: 0.375rem 0.75rem;
 }
 
-/* Estilos para secciones colapsables */
-.card-header[data-bs-toggle="collapse"] {
-  cursor: pointer;
-}
-
-.card-header[data-bs-toggle="collapse"] .bi {
-  transition: transform 0.3s;
-}
-
-.card-header[data-bs-toggle="collapse"].collapsed .bi {
-  transform: rotate(-90deg);
-}
-
-/* Estilos para impresión */
-@media print {
-  body * {
-    visibility: hidden;
-  }
-
-  .print-section,
-  .print-section * {
-    visibility: visible;
-  }
-
-  .no-print,
-  .no-print * {
-    display: none !important;
-  }
-
-  .card {
-    border: none;
-    box-shadow: none;
-    page-break-inside: avoid;
-  }
-
-  .container-fluid {
-    padding: 0;
-  }
-
-  body {
-    padding: 0;
-    font-size: 12px;
-  }
-
-  .table {
-    font-size: 11px;
-  }
-
-  .card-header {
-    background-color: #f1f1f1 !important;
-    color: #000 !important;
-    padding: 5px 10px;
-  }
-
-  .card-body {
-    padding: 10px;
-  }
-
-  .table th,
-  .table td {
-    padding: 4px;
-  }
-
-  /* Estilo para la fecha en impresión */
-  #fecha-display {
-    font-weight: bold;
-  }
-}
-
-/* Colores específicos */
-.bg-primary {
-  background-color: #0d6efd !important;
-}
-.bg-success {
-  background-color: #198754 !important;
-}
-.bg-danger {
-  background-color: #dc3545 !important;
-}
-.bg-warning {
-  background-color: #ffc107 !important;
-}
-.bg-info {
-  background-color: #0dcaf0 !important;
-}
-.bg-secondary {
-  background-color: #6c757d !important;
-}
-
-.btn-success {
-  background-color: #198754;
-  border-color: #198754;
-}
-
-.btn-primary {
-  background-color: #0d6efd;
-  border-color: #0d6efd;
-}
-
-.btn-light {
+.input-group-text {
   background-color: #f8f9fa;
-  border-color: #f8f9fa;
 }
 
-.btn-warning {
-  background-color: #ffc107;
-  border-color: #ffc107;
-  color: #212529;
+/* Botones */
+.btn {
+  font-weight: 500;
+  border-radius: 0.25rem;
 }
 
-/* Estilos para tablas */
-.table-primary {
-  background-color: #cfe2ff;
-}
-
-.table-striped tbody tr:nth-of-type(odd) {
-  background-color: rgba(0, 0, 0, 0.02);
-}
-
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 768px) {
-  .card {
-    margin-bottom: 20px;
+  .card-body {
+    padding: 1rem;
   }
 
-  .row > div {
-    margin-bottom: 15px;
+  .calculos-list,
+  .calculos-resultados {
+    margin-bottom: 1rem;
   }
 }
 
-/* Estilos para campos de solo lectura */
-.readonly-input {
-  background-color: #f8f9fa;
-  cursor: not-allowed;
+/* Efectos hover para elementos interactivos */
+.btn-outline-secondary:hover {
+  background-color: var(--secondary-color);
+  color: white;
 }
 
-/* Estilos para botones de edición */
-.edit-btn {
-  width: 38px;
-}
-
-/* Estilos para el textarea de observaciones */
-#observaciones {
-  resize: vertical;
-  min-height: 100px;
-  background-color: #f8f9fa;
-}
-
-/* Estilo para textarea en modo lectura */
-#observaciones[readonly] {
-  background-color: #f8f9fa;
-  cursor: not-allowed;
-}
-
-/* Estilo para textarea en modo edición */
-#observaciones:not([readonly]) {
-  background-color: white;
-  cursor: text;
-}
-
-/* Estilos para botones de observaciones */
-#edit-observaciones-btn,
-#save-observaciones-btn {
-  height: 38px;
-}
-
-/* Estilos para los totales en la sección de cálculos */
-#total-calculado,
-#total-sistema,
-#diferencia-sistema {
-  font-weight: bold;
-}
-
-.text-success {
-  color: #28a745 !important;
-}
-
-.text-danger {
-  color: #dc3545 !important;
-}
-
-/* Estilos para los filtros */
-.card-header select {
-  margin-left: 10px;
-}
-
-/* Ajustes para los botones de guardar/cargar */
-#btn-guardar {
-  margin-right: 10px;
-}
-
-.input-group {
-  max-width: 300px;
-}
-
-/* Para el selector de fecha */
-#buscar-fecha {
-  background-color: white;
-  cursor: pointer;
-}
-
-/* Ajustes para la fecha */
+/* Estilos para la fecha */
 #fecha-display {
-  font-weight: bold;
+  font-size: 0.9rem;
+  color: var(--secondary-color);
 }
 
-/* Ajustes para los botones de acción en tablas */
-.btn-sm {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
+/* Estilos para los totales */
+#total-calculado {
+  font-size: 1.1rem;
 }
 
-/* Añade al final del archivo CSS */
-
-/* Estilos responsivos mejorados */
-@media (max-width: 768px) {
-  .card-header {
-    font-size: 0.9rem;
-  }
-
-  .form-control,
-  .form-select {
-    font-size: 0.85rem;
-  }
-
-  .btn {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.8rem;
-  }
-
-  /* Ajustes para la tabla en móviles */
-  .table-responsive {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* Header responsivo */
-  header .input-group {
-    width: 100% !important;
-  }
-
-  #fecha-planilla {
-    width: 100% !important;
-  }
-}
-
-/* Mejoras para pantallas muy pequeñas */
-@media (max-width: 576px) {
-  .col-xs-6 {
-    flex: 0 0 50%;
-    max-width: 50%;
-  }
-
-  .card-body {
-    padding: 0.75rem;
-  }
-
-  /* Ocultar iconos en botones muy pequeños */
-  .btn-sm .bi {
-    margin-right: 0;
-  }
+#diferencia-sistema {
+  font-size: 1.1rem;
+  font-weight: 600;
 }
