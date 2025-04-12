@@ -96,3 +96,27 @@ body {
   font-size: 1.1rem;
   font-weight: 600;
 }
+
+/* Estilos para los montos */
+.text-success {
+  color: var(--success-color) !important;
+}
+
+.text-danger {
+  color: var(--danger-color) !important;
+}
+
+/* Sección de movimientos */
+#movimientos .card {
+  margin-bottom: 1.5rem;
+}
+
+#movimientos .card:last-child {
+  margin-bottom: 0;
+}
+
+/* Botones de acción en tablas */
+.btn-action {
+  padding: 0.2rem 0.4rem;
+  font-size: 0.8rem;
+}
