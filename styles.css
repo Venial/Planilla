@@ -242,3 +242,54 @@ body {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
 }
+
+/* Añade al final del archivo CSS */
+
+/* Estilos responsivos mejorados */
+@media (max-width: 768px) {
+  .card-header {
+    font-size: 0.9rem;
+  }
+
+  .form-control,
+  .form-select {
+    font-size: 0.85rem;
+  }
+
+  .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  /* Ajustes para la tabla en móviles */
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Header responsivo */
+  header .input-group {
+    width: 100% !important;
+  }
+
+  #fecha-planilla {
+    width: 100% !important;
+  }
+}
+
+/* Mejoras para pantallas muy pequeñas */
+@media (max-width: 576px) {
+  .col-xs-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .card-body {
+    padding: 0.75rem;
+  }
+
+  /* Ocultar iconos en botones muy pequeños */
+  .btn-sm .bi {
+    margin-right: 0;
+  }
+}

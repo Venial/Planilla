@@ -64,97 +64,126 @@ document.addEventListener("DOMContentLoaded", function () {
   buscarFechaInput.value = dateStr;
   fechaDisplayElement.textContent = formatDate(dateStr);
 
-  // Event listeners
-  fechaPlanillaInput.addEventListener("change", function () {
-    fechaDisplayElement.textContent = formatDate(this.value);
-  });
+  // Inicialización
+  setupEventListeners();
+  setupEditButtons();
+  actualizarListas();
+  actualizarCalculos();
 
-  btnGuardar.addEventListener("click", guardarPlanilla);
-  btnCargar.addEventListener("click", () =>
-    cargarPlanilla(buscarFechaInput.value)
-  );
-  btnImprimir.addEventListener("click", () => window.print());
-
-  // Configurar eventos para filtros
-  filtroOnline.addEventListener("change", actualizarListaOnline);
-  filtroPosnet.addEventListener("change", actualizarListaPosnet);
-  filtroEgresos.addEventListener("change", actualizarListaEgresos);
-
-  // Configurar eventos para formularios
-  formOnline.addEventListener("submit", function (e) {
-    e.preventDefault();
-    agregarMovimientoOnline({
-      metodo: document.getElementById("metodo-online").value,
-      monto: parseFloat(document.getElementById("monto-online").value),
-      operaciones: parseInt(
-        document.getElementById("operaciones-online").value
-      ),
-      fecha: new Date(),
+  // Configurar eventos
+  function setupEventListeners() {
+    fechaPlanillaInput.addEventListener("change", function () {
+      fechaDisplayElement.textContent = formatDate(this.value);
     });
-    this.reset();
-  });
 
-  formPosnet.addEventListener("submit", function (e) {
-    e.preventDefault();
-    agregarMovimientoPosnet({
-      tipoTarjeta: document.getElementById("tipo-posnet").value,
-      monto: parseFloat(document.getElementById("monto-posnet").value),
-      operaciones: parseInt(
-        document.getElementById("operaciones-posnet").value
-      ),
-      fecha: new Date(),
+    btnGuardar.addEventListener("click", guardarPlanilla);
+    btnCargar.addEventListener("click", () =>
+      cargarPlanilla(buscarFechaInput.value)
+    );
+    btnImprimir.addEventListener("click", () => window.print());
+
+    filtroOnline.addEventListener("change", () => actualizarListaOnline());
+    filtroPosnet.addEventListener("change", () => actualizarListaPosnet());
+    filtroEgresos.addEventListener("change", () => actualizarListaEgresos());
+
+    formOnline.addEventListener("submit", function (e) {
+      e.preventDefault();
+      agregarMovimientoOnline({
+        metodo: document.getElementById("metodo-online").value,
+        monto: parseFloat(document.getElementById("monto-online").value) || 0,
+        operaciones:
+          parseInt(document.getElementById("operaciones-online").value) || 0,
+        fecha: new Date(),
+      });
+      this.reset();
     });
-    this.reset();
-  });
 
-  formEgreso.addEventListener("submit", function (e) {
-    e.preventDefault();
-    agregarMovimientoEgreso({
-      metodo: document.getElementById("metodo-egreso").value,
-      monto: parseFloat(document.getElementById("monto-egreso").value),
-      concepto: document.getElementById("concepto-egreso").value || "Egreso",
-      fecha: new Date(),
+    formPosnet.addEventListener("submit", function (e) {
+      e.preventDefault();
+      agregarMovimientoPosnet({
+        tipoTarjeta: document.getElementById("tipo-posnet").value,
+        monto: parseFloat(document.getElementById("monto-posnet").value) || 0,
+        operaciones:
+          parseInt(document.getElementById("operaciones-posnet").value) || 0,
+        fecha: new Date(),
+      });
+      this.reset();
     });
-    this.reset();
-  });
 
-  // Configurar campos editables
-  document.querySelectorAll('[id^="edit-"]').forEach((btn) => {
-    const fieldId = btn.id.replace("edit-", "");
-    const field = document.getElementById(fieldId);
-
-    btn.addEventListener("click", () => {
-      field.readOnly = !field.readOnly;
-      field.classList.toggle("readonly-input");
-      if (!field.readOnly) field.focus();
+    formEgreso.addEventListener("submit", function (e) {
+      e.preventDefault();
+      agregarMovimientoEgreso({
+        metodo: document.getElementById("metodo-egreso").value,
+        monto: parseFloat(document.getElementById("monto-egreso").value) || 0,
+        concepto: document.getElementById("concepto-egreso").value || "Egreso",
+        fecha: new Date(),
+      });
+      this.reset();
     });
-  });
 
-  // Configurar observaciones
-  editObservacionesBtn.addEventListener("click", function () {
-    observacionesInput.readOnly = false;
-    observacionesInput.focus();
-    editObservacionesBtn.style.display = "none";
-    saveObservacionesBtn.style.display = "block";
-  });
+    editObservacionesBtn.addEventListener("click", function () {
+      observacionesInput.readOnly = false;
+      observacionesInput.focus();
+      editObservacionesBtn.style.display = "none";
+      saveObservacionesBtn.style.display = "block";
+    });
 
-  saveObservacionesBtn.addEventListener("click", function () {
-    observacionesInput.readOnly = true;
-    observacionesPrint.textContent = observacionesInput.value;
-    editObservacionesBtn.style.display = "block";
-    saveObservacionesBtn.style.display = "none";
-    datosPrincipales.observaciones = observacionesInput.value;
-  });
+    saveObservacionesBtn.addEventListener("click", function () {
+      observacionesInput.readOnly = true;
+      observacionesPrint.textContent = observacionesInput.value;
+      editObservacionesBtn.style.display = "block";
+      saveObservacionesBtn.style.display = "none";
+      datosPrincipales.observaciones = observacionesInput.value;
+    });
+  }
 
-  // Funciones principales
+  // Configurar botones de edición
+  function setupEditButtons() {
+    document.querySelectorAll('[id^="edit-"]').forEach((btn) => {
+      const fieldId = btn.id.replace("edit-", "");
+      const field = document.getElementById(fieldId);
+
+      btn.addEventListener("click", function () {
+        toggleEditField(field, fieldId);
+      });
+    });
+  }
+
+  function toggleEditField(field, fieldName) {
+    if (field.readOnly) {
+      // Modo edición
+      field.readOnly = false;
+      field.classList.remove("readonly-input");
+      field.focus();
+    } else {
+      // Guardar cambios
+      field.readOnly = true;
+      field.classList.add("readonly-input");
+
+      // Actualizar datos principales según el tipo de campo
+      if (fieldName === "observaciones") {
+        datosPrincipales[fieldName] = field.value;
+      } else if (fieldName === "total-operaciones") {
+        datosPrincipales.totalOperaciones = parseInt(field.value) || 0;
+      } else {
+        datosPrincipales[fieldName.replace("-", "")] =
+          parseFloat(field.value) || 0;
+      }
+
+      // Actualizar cálculos
+      actualizarCalculos();
+    }
+  }
+
+  // Función para formatear fecha
   function formatDate(dateStr) {
     if (!dateStr) return "-";
     const date = new Date(dateStr);
-    // Ajuste para zona horaria
     date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
     return date.toLocaleDateString("es-AR");
   }
 
+  // Funciones para guardar/cargar planillas
   function guardarPlanilla() {
     const planilla = {
       fecha: fechaPlanillaInput.value,
@@ -203,9 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
     movimientosEgresos = planilla.movimientosEgresos || [];
 
     // Actualizar UI
-    actualizarListaOnline();
-    actualizarListaPosnet();
-    actualizarListaEgresos();
+    actualizarListas();
     actualizarCalculos();
 
     // Actualizar fecha
@@ -213,6 +240,7 @@ document.addEventListener("DOMContentLoaded", function () {
     fechaDisplayElement.textContent = formatDate(fecha);
   }
 
+  // Funciones para manejar movimientos
   function agregarMovimientoOnline(movimiento) {
     movimientosOnline.push(movimiento);
     actualizarListaOnline();
@@ -229,6 +257,13 @@ document.addEventListener("DOMContentLoaded", function () {
     movimientosEgresos.push(movimiento);
     actualizarListaEgresos();
     actualizarCalculos();
+  }
+
+  // Funciones para actualizar las listas
+  function actualizarListas() {
+    actualizarListaOnline();
+    actualizarListaPosnet();
+    actualizarListaEgresos();
   }
 
   function actualizarListaOnline() {
@@ -258,7 +293,6 @@ document.addEventListener("DOMContentLoaded", function () {
       totalMonto += mov.monto;
     });
 
-    // Actualizar totales (todos los movimientos, no solo los filtrados)
     const totalOpsAll = movimientosOnline.reduce(
       (sum, m) => sum + m.operaciones,
       0
@@ -299,7 +333,6 @@ document.addEventListener("DOMContentLoaded", function () {
       totalMonto += mov.monto;
     });
 
-    // Actualizar totales (todos los movimientos, no solo los filtrados)
     const totalOpsAll = movimientosPosnet.reduce(
       (sum, m) => sum + m.operaciones,
       0
@@ -338,7 +371,6 @@ document.addEventListener("DOMContentLoaded", function () {
       totalMonto += mov.monto;
     });
 
-    // Actualizar totales (todos los movimientos, no solo los filtrados)
     const totalMontoAll = movimientosEgresos.reduce(
       (sum, m) => sum + m.monto,
       0
@@ -346,57 +378,64 @@ document.addEventListener("DOMContentLoaded", function () {
     totalMontoEgresos.textContent = `$${totalMontoAll.toFixed(2)}`;
   }
 
+  // Función principal de cálculos
+
   function actualizarCalculos() {
-    // Actualizar datos principales
-    datosPrincipales.balanceInicial =
-      parseFloat(balanceInicialInput.value) || 0;
-    datosPrincipales.balanceCierre = parseFloat(balanceCierreInput.value) || 0;
-    datosPrincipales.efectivoCaja = parseFloat(efectivoCajaInput.value) || 0;
-    datosPrincipales.totalOperaciones =
-      parseInt(totalOperacionesInput.value) || 0;
-    datosPrincipales.ventaSistema = parseFloat(ventaSistemaInput.value) || 0;
-    datosPrincipales.observaciones = observacionesInput.value;
+    // 1. Obtener valores actuales de los inputs
+    const bolsinInicial = parseFloat(balanceInicialInput.value) || 0;
+    const bolsinCierre = parseFloat(balanceCierreInput.value) || 0;
+    const efectivoCaja = parseFloat(efectivoCajaInput.value) || 0;
+    const totalSistema = parseFloat(ventaSistemaInput.value) || 0;
 
-    // Calcular diferencia de balance
-    const diferenciaBalance =
-      datosPrincipales.balanceCierre - datosPrincipales.balanceInicial;
-    diferenciaBalanceElement.textContent = `$${diferenciaBalance.toFixed(2)}`;
-    diferenciaBalanceElement.className =
-      diferenciaBalance >= 0 ? "text-success" : "text-danger";
-
-    // Calcular totales por categoría
-    const totalOnline = movimientosOnline.reduce((sum, m) => sum + m.monto, 0);
-    const totalPosnet = movimientosPosnet.reduce((sum, m) => sum + m.monto, 0);
-    const totalEgresos = movimientosEgresos.reduce(
-      (sum, m) => sum + m.monto,
+    // 2. Calcular totales de movimientos
+    const totalOnline = movimientosOnline.reduce(
+      (sum, mov) => sum + mov.monto,
       0
     );
+    const totalPosnet = movimientosPosnet.reduce(
+      (sum, mov) => sum + mov.monto,
+      0
+    );
+    const totalEgresos = movimientosEgresos.reduce(
+      (sum, mov) => sum + mov.monto,
+      0
+    );
+
+    // 3. Aplicar la fórmula exacta que me indicaste
+    const diferenciaBolsin = bolsinCierre - bolsinInicial;
+    const totalEfectivoCaja = efectivoCaja + totalEgresos;
+    const totalDigital = totalOnline + totalPosnet;
+    const totalPlanilla = totalEfectivoCaja + totalDigital + diferenciaBolsin;
+    const diferenciaCierre = totalPlanilla - totalSistema;
+
+    // 4. Actualizar la interfaz con los resultados
+    diferenciaBalanceElement.textContent = `$${diferenciaBolsin.toFixed(2)}`;
+    diferenciaBalanceElement.className =
+      diferenciaBolsin >= 0 ? "text-success" : "text-danger";
 
     totalOnlineElement.textContent = `$${totalOnline.toFixed(2)}`;
     totalPosnetElement.textContent = `$${totalPosnet.toFixed(2)}`;
     totalEgresosElement.textContent = `$${totalEgresos.toFixed(2)}`;
 
-    // Calcular total calculado según la fórmula solicitada
-    const totalCalculado =
-      diferenciaBalance +
-      totalOnline +
-      totalPosnet +
-      totalEgresos +
-      datosPrincipales.efectivoCaja;
-    totalCalculadoElement.textContent = `$${totalCalculado.toFixed(2)}`;
+    totalCalculadoElement.textContent = `$${totalPlanilla.toFixed(2)}`;
+    totalSistemaElement.textContent = `$${totalSistema.toFixed(2)}`;
 
-    // Mostrar total sistema (venta del sistema)
-    totalSistemaElement.textContent = `$${datosPrincipales.ventaSistema.toFixed(
-      2
-    )}`;
-
-    // Calcular diferencia con sistema
-    const diferenciaSistema = totalCalculado - datosPrincipales.ventaSistema;
-    diferenciaSistemaElement.textContent = `$${diferenciaSistema.toFixed(2)}`;
+    diferenciaSistemaElement.textContent = `$${diferenciaCierre.toFixed(2)}`;
     diferenciaSistemaElement.className =
-      diferenciaSistema >= 0 ? "text-success" : "text-danger";
+      diferenciaCierre >= 0 ? "text-success" : "text-danger";
+
+    // 5. Actualizar datos principales
+    datosPrincipales = {
+      balanceInicial: bolsinInicial,
+      balanceCierre: bolsinCierre,
+      efectivoCaja: efectivoCaja,
+      totalOperaciones: parseInt(totalOperacionesInput.value) || 0,
+      ventaSistema: totalSistema,
+      observaciones: observacionesInput.value,
+    };
   }
 
+  // Función para formatear nombres de métodos
   function formatNombreMetodo(metodo) {
     const nombres = {
       MP: "Mercado Pago",
@@ -446,10 +485,4 @@ document.addEventListener("DOMContentLoaded", function () {
       actualizarCalculos();
     }
   };
-
-  // Inicializar
-  actualizarListaOnline();
-  actualizarListaPosnet();
-  actualizarListaEgresos();
-  actualizarCalculos();
 });
