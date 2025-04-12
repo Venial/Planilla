@@ -120,3 +120,81 @@ body {
   padding: 0.2rem 0.4rem;
   font-size: 0.8rem;
 }
+
+/* Estilos para los calendarios en los dropdowns */
+.dropdown-menu .pika {
+  margin: 0;
+}
+
+.pika-single {
+  border: none;
+  box-shadow: none;
+}
+
+.pika-title {
+  position: relative;
+}
+
+.pika-label {
+  display: inline-block;
+  margin: 0 30px;
+}
+
+/* Colores para fechas con planillas */
+.pika-button.has-planilla-cargar {
+  background-color: #d4edda;
+}
+
+.pika-button.has-planilla-nueva {
+  background-color: #f8d7da;
+}
+
+/* Botón personalizado */
+.pika-title .btn {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.15rem 0.5rem;
+  font-size: 0.8rem;
+}
+
+/* Estilos para impresión */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #print-section,
+  #print-section * {
+    visibility: visible;
+  }
+  #print-section {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    font-size: 12px;
+  }
+  .no-print {
+    display: none !important;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 4px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  .text-success {
+    color: #28a745 !important;
+  }
+  .text-danger {
+    color: #dc3545 !important;
+  }
+}

@@ -12,6 +12,10 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -62,11 +66,6 @@
                   <h5 class="card-title mb-0">Control de ingresos y egresos</h5>
                   <small class="text-muted" id="fecha-display"></small>
                 </div>
-                <input
-                  type="date"
-                  class="form-control form-control-sm w-auto"
-                  id="fecha-planilla"
-                />
               </div>
             </div>
           </div>
@@ -76,16 +75,42 @@
             <div class="card-body py-2">
               <div class="d-flex gap-2 justify-content-end">
                 <button id="btn-guardar" class="btn btn-success btn-sm">
-                  <i class="bi bi-save"></i>
-                  <span class="d-none d-md-inline">Guardar</span>
+                  <i class="bi bi-save"></i> Guardar
                 </button>
-                <button id="btn-cargar" class="btn btn-primary btn-sm">
-                  <i class="bi bi-folder2-open"></i>
-                  <span class="d-none d-md-inline">Cargar</span>
-                </button>
+                <div class="dropdown d-inline-block">
+                  <button
+                    class="btn btn-primary btn-sm dropdown-toggle"
+                    type="button"
+                    id="dropdownCargar"
+                    data-bs-toggle="dropdown"
+                  >
+                    <i class="bi bi-folder2-open"></i> Cargar planilla
+                  </button>
+                  <div
+                    class="dropdown-menu p-3"
+                    aria-labelledby="dropdownCargar"
+                  >
+                    <div id="calendario-cargar"></div>
+                  </div>
+                </div>
+                <div class="dropdown d-inline-block">
+                  <button
+                    class="btn btn-outline-success btn-sm dropdown-toggle"
+                    type="button"
+                    id="dropdownNueva"
+                    data-bs-toggle="dropdown"
+                  >
+                    <i class="bi bi-file-earmark-plus"></i> Nueva planilla
+                  </button>
+                  <div
+                    class="dropdown-menu p-3"
+                    aria-labelledby="dropdownNueva"
+                  >
+                    <div id="calendario-nueva"></div>
+                  </div>
+                </div>
                 <button id="btn-imprimir" class="btn btn-dark btn-sm">
-                  <i class="bi bi-printer"></i>
-                  <span class="d-none d-md-inline">Imprimir</span>
+                  <i class="bi bi-printer"></i> Imprimir
                 </button>
               </div>
             </div>
@@ -189,7 +214,6 @@
                         id="balance-inicial"
                         step="0.01"
                       />
-
                       <button
                         class="btn btn-outline-secondary"
                         type="button"
@@ -239,27 +263,6 @@
                     </div>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Cant. Operaciones:</label>
-                    <div class="input-group">
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="total-operaciones"
-                      />
-                      <button
-                        class="btn btn-outline-secondary"
-                        type="button"
-                        id="edit-total-operaciones"
-                      >
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="mb-3">
                     <label class="form-label">Venta del Sistema:</label>
                     <div class="input-group">
                       <input
@@ -278,7 +281,9 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-6">
+              </div>
+              <div class="row">
+                <div class="col-md-12">
                   <div class="mb-3">
                     <label class="form-label">Observaciones:</label>
                     <textarea
@@ -294,7 +299,7 @@
         </div>
       </div>
 
-      <!-- Sección de Movimientos (se puede colapsar) -->
+      <!-- Sección de Movimientos -->
       <div class="row mb-4" id="movimientos">
         <div class="col-12">
           <div class="card shadow">
@@ -302,7 +307,6 @@
               <i class="bi bi-list-check me-2"></i>Movimientos
             </div>
             <div class="card-body">
-              <!-- Aquí irían las secciones de movimientos online, POSNET y egresos -->
               <!-- Movimientos Pagos Online -->
               <div class="card shadow mb-4">
                 <div
@@ -367,9 +371,7 @@
                             <th>Acciones</th>
                           </tr>
                         </thead>
-                        <tbody id="lista-online">
-                          <!-- Movimientos se agregarán aquí -->
-                        </tbody>
+                        <tbody id="lista-online"></tbody>
                         <tfoot class="table-primary">
                           <tr>
                             <th>Total</th>
@@ -455,9 +457,7 @@
                             <th>Acciones</th>
                           </tr>
                         </thead>
-                        <tbody id="lista-posnet">
-                          <!-- Movimientos se agregarán aquí -->
-                        </tbody>
+                        <tbody id="lista-posnet"></tbody>
                         <tfoot class="table-primary">
                           <tr>
                             <th>Total</th>
@@ -533,9 +533,7 @@
                             <th>Acciones</th>
                           </tr>
                         </thead>
-                        <tbody id="lista-egresos">
-                          <!-- Movimientos se agregarán aquí -->
-                        </tbody>
+                        <tbody id="lista-egresos"></tbody>
                         <tfoot class="table-primary">
                           <tr>
                             <th colspan="2">Total</th>
@@ -548,8 +546,6 @@
                   </div>
                 </div>
               </div>
-              <!-- Se mantendría la misma estructura que en tu versión original -->
-              <!-- ... -->
             </div>
           </div>
         </div>
@@ -557,6 +553,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
