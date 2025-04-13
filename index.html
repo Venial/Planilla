@@ -7,6 +7,7 @@
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
+      rel="stylesheet"
     />
     <link
       rel="stylesheet"
@@ -111,7 +112,160 @@
                 </div>
                 <button id="btn-imprimir" class="btn btn-dark btn-sm">
                   <i class="bi bi-printer"></i> Imprimir
+    <!-- Navbar con menú hamburguesa -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <i class="bi bi-cash-stack me-2"></i>Planilla RES
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#datos"
+                ><i class="bi bi-card-checklist"></i> Datos</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#calculos"
+                ><i class="bi bi-calculator"></i> Cálculos</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#movimientos"
+                ><i class="bi bi-list-check"></i> Movimientos</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid mt-3">
+      <!-- Header con fecha y acciones -->
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="card bg-light">
+            <div class="card-body py-2">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h5 class="card-title mb-0">Control de ingresos y egresos</h5>
+                  <small class="text-muted" id="fecha-display"></small>
+                </div>
+                <input
+                  type="date"
+                  class="form-control form-control-sm w-auto"
+                  id="fecha-planilla"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card bg-light">
+            <div class="card-body py-2">
+              <div class="d-flex gap-2 justify-content-end">
+                <button id="btn-guardar" class="btn btn-success btn-sm">
+                  <i class="bi bi-save"></i>
+                  <span class="d-none d-md-inline">Guardar</span>
                 </button>
+                <button id="btn-cargar" class="btn btn-primary btn-sm">
+                  <i class="bi bi-folder2-open"></i>
+                  <span class="d-none d-md-inline">Cargar</span>
+                </button>
+                <button id="btn-imprimir" class="btn btn-dark btn-sm">
+                  <i class="bi bi-printer"></i>
+                  <span class="d-none d-md-inline">Imprimir</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección de Cálculos -->
+      <div class="row mb-4" id="calculos">
+        <div class="col-12">
+          <div class="card shadow">
+            <div class="card-header bg-info text-white">
+              <i class="bi bi-calculator me-2"></i>Cálculos
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="calculos-list">
+                    <div
+                      class="d-flex justify-content-between py-2 border-bottom"
+                    >
+                      <span>Diferencia Balance:</span>
+                      <strong id="diferencia-balance" class="text-end"
+                        >$0.00</strong
+                      >
+                    </div>
+                    <div
+                      class="d-flex justify-content-between py-2 border-bottom"
+                    >
+                      <span>Total Efectivo:</span>
+                      <strong id="total-efectivo" class="text-end"
+                        >$0.00</strong
+                      >
+                    </div>
+                    <div
+                      class="d-flex justify-content-between py-2 border-bottom"
+                    >
+                      <span>Total Ingresos Online:</span>
+                      <strong id="total-online" class="text-end">$0.00</strong>
+                    </div>
+                    <div
+                      class="d-flex justify-content-between py-2 border-bottom"
+                    >
+                      <span>Total Ingresos POSNET:</span>
+                      <strong id="total-posnet" class="text-end">$0.00</strong>
+                    </div>
+                    <div class="d-flex justify-content-between py-2">
+                      <span>Total Egresos:</span>
+                      <strong id="total-egresos" class="text-end">$0.00</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mt-3 mt-md-0">
+                  <div class="calculos-resultados">
+                    <div
+                      class="d-flex justify-content-between py-2 border-bottom"
+                    >
+                      <span>Total Calculado:</span>
+                      <strong id="total-calculado" class="text-success"
+                        >$0.00</strong
+                      >
+                    </div>
+                    <div
+                      class="d-flex justify-content-between py-2 border-bottom"
+                    >
+                      <span>Total Sistema:</span>
+                      <strong id="total-sistema" class="text-primary"
+                        >$0.00</strong
+                      >
+                    </div>
+                    <div class="d-flex justify-content-between py-2">
+                      <span>Diferencia:</span>
+                      <strong id="diferencia-sistema" class="text-danger"
+                        >$0.00</strong
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
               </div>
             </div>
           </div>
@@ -202,8 +356,15 @@
             <div class="card-header bg-primary text-white">
               <i class="bi bi-card-checklist me-2"></i>Datos Principales
             </div>
+      <div class="row mb-4" id="datos">
+        <div class="col-12">
+          <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+              <i class="bi bi-card-checklist me-2"></i>Datos Principales
+            </div>
             <div class="card-body">
               <div class="row">
+                <div class="col-md-6">
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label">Balance Inicial:</label>
@@ -233,6 +394,8 @@
                         step="0.01"
                         readonly
                       />
+                        readonly
+                      />
                       <button
                         class="btn btn-outline-secondary"
                         type="button"
@@ -243,6 +406,7 @@
                     </div>
                   </div>
                 </div>
+                <div class="col-md-6">
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label">Efectivo en Caja:</label>
@@ -262,6 +426,27 @@
                       </button>
                     </div>
                   </div>
+                  <div class="mb-3">
+                    <label class="form-label">Cant. Operaciones:</label>
+                    <div class="input-group">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="total-operaciones"
+                      />
+                      <button
+                        class="btn btn-outline-secondary"
+                        type="button"
+                        id="edit-total-operaciones"
+                      >
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label">Venta del Sistema:</label>
                     <div class="input-group">
@@ -291,6 +476,11 @@
                       id="observaciones"
                       rows="2"
                     ></textarea>
+                    <textarea
+                      class="form-control"
+                      id="observaciones"
+                      rows="2"
+                    ></textarea>
                   </div>
                 </div>
               </div>
@@ -299,6 +489,17 @@
         </div>
       </div>
 
+      <!-- Sección de Movimientos (se puede colapsar) -->
+      <div class="row mb-4" id="movimientos">
+        <div class="col-12">
+          <div class="card shadow">
+            <div class="card-header bg-secondary text-white">
+              <i class="bi bi-list-check me-2"></i>Movimientos
+            </div>
+            <div class="card-body">
+              <!-- Aquí irían las secciones de movimientos online, POSNET y egresos -->
+              <!-- Se mantendría la misma estructura que en tu versión original -->
+              <!-- ... -->
       <!-- Sección de Movimientos -->
       <div class="row mb-4" id="movimientos">
         <div class="col-12">
