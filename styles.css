@@ -7,8 +7,27 @@
   --warning-color: #ffc107;
 }
 
+:root {
+  --primary-color: #0d6efd;
+  --secondary-color: #6c757d;
+  --success-color: #198754;
+  --info-color: #0dcaf0;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+}
+
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+}
+
+/* Navbar estilizada */
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-weight: 600;
   background-color: #f8f9fa;
 }
 
@@ -22,7 +41,12 @@ body {
 }
 
 /* Cards mejoradas */
+/* Cards mejoradas */
 .card {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  transition: transform 0.3s ease;
   border: none;
   border-radius: 0.5rem;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
@@ -31,9 +55,12 @@ body {
 
 .card:hover {
   transform: translateY(-2px);
+  transform: translateY(-2px);
 }
 
 .card-header {
+  font-weight: 600;
+  border-radius: 0.5rem 0.5rem 0 0 !important;
   font-weight: 600;
   border-radius: 0.5rem 0.5rem 0 0 !important;
 }
@@ -44,14 +71,24 @@ body {
   background-color: #f8f9fa;
   padding: 1rem;
   border-radius: 0.5rem;
+/* Lista de cálculos */
+.calculos-list,
+.calculos-resultados {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 0.5rem;
 }
 
+/* Inputs mejorados */
 /* Inputs mejorados */
 .form-control,
 .form-select {
   border-radius: 0.25rem;
   padding: 0.375rem 0.75rem;
+  padding: 0.375rem 0.75rem;
 }
+
+.input-group-text {
 
 .input-group-text {
   background-color: #f8f9fa;
@@ -61,8 +98,13 @@ body {
 .btn {
   font-weight: 500;
   border-radius: 0.25rem;
+/* Botones */
+.btn {
+  font-weight: 500;
+  border-radius: 0.25rem;
 }
 
+/* Responsive */
 /* Responsive */
 @media (max-width: 768px) {
   .card-body {
@@ -72,6 +114,8 @@ body {
   .calculos-list,
   .calculos-resultados {
     margin-bottom: 1rem;
+  .card-body {
+    padding: 1rem;
   }
 }
 
@@ -79,8 +123,133 @@ body {
 .btn-outline-secondary:hover {
   background-color: var(--secondary-color);
   color: white;
+
+  .calculos-list,
+  .calculos-resultados {
+    margin-bottom: 1rem;
+  }
 }
 
+/* Estilos para la fecha */
+#fecha-display {
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+}
+
+/* Estilos para los totales */
+#total-calculado {
+  font-size: 1.1rem;
+}
+
+#diferencia-sistema {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Estilos para los montos */
+.text-success {
+  color: var(--success-color) !important;
+}
+
+.text-danger {
+  color: var(--danger-color) !important;
+}
+
+/* Sección de movimientos */
+#movimientos .card {
+  margin-bottom: 1.5rem;
+}
+
+#movimientos .card:last-child {
+  margin-bottom: 0;
+}
+
+/* Botones de acción en tablas */
+.btn-action {
+  padding: 0.2rem 0.4rem;
+  font-size: 0.8rem;
+}
+
+/* Estilos para los calendarios en los dropdowns */
+.dropdown-menu .pika {
+  margin: 0;
+}
+
+.pika-single {
+  border: none;
+  box-shadow: none;
+/* Efectos hover para elementos interactivos */
+.btn-outline-secondary:hover {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.pika-title {
+  position: relative;
+}
+
+.pika-label {
+  display: inline-block;
+  margin: 0 30px;
+}
+
+/* Colores para fechas con planillas */
+.pika-button.has-planilla-cargar {
+  background-color: #d4edda;
+}
+
+.pika-button.has-planilla-nueva {
+  background-color: #f8d7da;
+}
+
+/* Botón personalizado */
+.pika-title .btn {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.15rem 0.5rem;
+  font-size: 0.8rem;
+}
+
+/* Estilos para impresión */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #print-section,
+  #print-section * {
+    visibility: visible;
+  }
+  #print-section {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    font-size: 12px;
+  }
+  .no-print {
+    display: none !important;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 4px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  .text-success {
+    color: #28a745 !important;
+  }
+  .text-danger {
+    color: #dc3545 !important;
+  }
 /* Estilos para la fecha */
 #fecha-display {
   font-size: 0.9rem;
