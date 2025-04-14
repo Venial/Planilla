@@ -12,11 +12,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css"
-    />
-    <link rel="stylesheet" href="src/styles.css" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <!-- Navbar con menú hamburguesa -->
@@ -561,13 +557,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="src/js/app.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
-    <script type="module" src="src/js/app.js"></script>
-    <script nomodule>
-      alert(
-        "Tu navegador no soporta módulos JavaScript. Por favor actualízalo o usa un navegador moderno."
-      );
-    </script>
+    <script src="app.js"></script>
   </body>
 </html>
