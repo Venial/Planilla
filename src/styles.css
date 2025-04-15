@@ -1,562 +1,235 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Planilla RES</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <!-- Navbar con menú hamburguesa -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <i class="bi bi-cash-stack me-2"></i>Planilla RES
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link active" href="#datos"
-                ><i class="bi bi-card-checklist"></i> Datos</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#calculos"
-                ><i class="bi bi-calculator"></i> Cálculos</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#movimientos"
-                ><i class="bi bi-list-check"></i> Movimientos</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+:root {
+  --primary-color: #0d6efd;
+  --secondary-color: #6c757d;
+  --success-color: #198754;
+  --info-color: #0dcaf0;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+}
 
-    <div class="container-fluid mt-3">
-      <!-- Header con fecha y acciones -->
-      <div class="row mb-4">
-        <div class="col-md-6">
-          <div class="card bg-light">
-            <div class="card-body py-2">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <h5 class="card-title mb-0">Control de ingresos y egresos</h5>
-                  <small class="text-muted" id="fecha-display"></small>
-                </div>
-                <input
-                  type="date"
-                  class="form-control form-control-sm w-auto"
-                  id="fecha-planilla"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card bg-light">
-            <div class="card-body py-2">
-              <div class="d-flex gap-2 justify-content-end">
-                <button id="btn-guardar" class="btn btn-success btn-sm">
-                  <i class="bi bi-save"></i>
-                  <span class="d-none d-md-inline">Guardar</span>
-                </button>
-                <button id="btn-cargar" class="btn btn-primary btn-sm">
-                  <i class="bi bi-folder2-open"></i>
-                  <span class="d-none d-md-inline">Cargar</span>
-                </button>
-                <button id="btn-imprimir" class="btn btn-dark btn-sm">
-                  <i class="bi bi-printer"></i>
-                  <span class="d-none d-md-inline">Imprimir</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+}
 
-      <!-- Sección de Cálculos -->
-      <div class="row mb-4" id="calculos">
-        <div class="col-12">
-          <div class="card shadow">
-            <div class="card-header bg-info text-white">
-              <i class="bi bi-calculator me-2"></i>Cálculos
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="calculos-list">
-                    <div
-                      class="d-flex justify-content-between py-2 border-bottom"
-                    >
-                      <span>Diferencia Balance:</span>
-                      <strong id="diferencia-balance" class="text-end"
-                        >$0.00</strong
-                      >
-                    </div>
-                    <div
-                      class="d-flex justify-content-between py-2 border-bottom"
-                    >
-                      <span>Total Efectivo:</span>
-                      <strong id="total-efectivo" class="text-end"
-                        >$0.00</strong
-                      >
-                    </div>
-                    <div
-                      class="d-flex justify-content-between py-2 border-bottom"
-                    >
-                      <span>Total Ingresos Online:</span>
-                      <strong id="total-online" class="text-end">$0.00</strong>
-                    </div>
-                    <div
-                      class="d-flex justify-content-between py-2 border-bottom"
-                    >
-                      <span>Total Ingresos POSNET:</span>
-                      <strong id="total-posnet" class="text-end">$0.00</strong>
-                    </div>
-                    <div class="d-flex justify-content-between py-2">
-                      <span>Total Egresos:</span>
-                      <strong id="total-egresos" class="text-end">$0.00</strong>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 mt-3 mt-md-0">
-                  <div class="calculos-resultados">
-                    <div
-                      class="d-flex justify-content-between py-2 border-bottom"
-                    >
-                      <span>Total Calculado:</span>
-                      <strong id="total-calculado" class="text-success"
-                        >$0.00</strong
-                      >
-                    </div>
-                    <div
-                      class="d-flex justify-content-between py-2 border-bottom"
-                    >
-                      <span>Total Sistema:</span>
-                      <strong id="total-sistema" class="text-primary"
-                        >$0.00</strong
-                      >
-                    </div>
-                    <div class="d-flex justify-content-between py-2">
-                      <span>Diferencia:</span>
-                      <strong id="diferencia-sistema" class="text-danger"
-                        >$0.00</strong
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+/* Navbar estilizada */
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-      <!-- Sección de Datos Principales -->
-      <div class="row mb-4" id="datos">
-        <div class="col-12">
-          <div class="card shadow">
-            <div class="card-header bg-primary text-white">
-              <i class="bi bi-card-checklist me-2"></i>Datos Principales
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label class="form-label">Balance Inicial:</label>
-                    <div class="input-group">
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="balance-inicial"
-                        step="0.01"
-                      />
+.navbar-brand {
+  font-weight: 600;
+}
 
-                      <button
-                        class="btn btn-outline-secondary"
-                        type="button"
-                        id="edit-balance-inicial"
-                      >
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label">Balance Cierre:</label>
-                    <div class="input-group">
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="balance-cierre"
-                        step="0.01"
-                        readonly
-                      />
-                      <button
-                        class="btn btn-outline-secondary"
-                        type="button"
-                        id="edit-balance-cierre"
-                      >
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label class="form-label">Efectivo en Caja:</label>
-                    <div class="input-group">
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="efectivo-caja"
-                        step="0.01"
-                      />
-                      <button
-                        class="btn btn-outline-secondary"
-                        type="button"
-                        id="edit-efectivo-caja"
-                      >
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label">Cant. Operaciones:</label>
-                    <div class="input-group">
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="total-operaciones"
-                      />
-                      <button
-                        class="btn btn-outline-secondary"
-                        type="button"
-                        id="edit-total-operaciones"
-                      >
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label class="form-label">Venta del Sistema:</label>
-                    <div class="input-group">
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="venta-sistema"
-                        step="0.01"
-                      />
-                      <button
-                        class="btn btn-outline-secondary"
-                        type="button"
-                        id="edit-venta-sistema"
-                      >
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label class="form-label">Observaciones:</label>
-                    <textarea
-                      class="form-control"
-                      id="observaciones"
-                      rows="2"
-                    ></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+/* Cards mejoradas */
+.card {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  transition: transform 0.3s ease;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  transition: transform 0.3s ease;
+}
 
-      <!-- Sección de Movimientos (se puede colapsar) -->
-      <div class="row mb-4" id="movimientos">
-        <div class="col-12">
-          <div class="card shadow">
-            <div class="card-header bg-secondary text-white">
-              <i class="bi bi-list-check me-2"></i>Movimientos
-            </div>
-            <div class="card-body">
-              <!-- Aquí irían las secciones de movimientos online, POSNET y egresos -->
-              <!-- Movimientos Pagos Online -->
-              <div class="card shadow mb-4">
-                <div
-                  class="card-header bg-success text-white d-flex justify-content-between align-items-center"
-                >
-                  <span><i class="bi bi-phone me-2"></i>Pagos Online</span>
-                  <button
-                    class="btn btn-sm btn-light"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#onlineCollapse"
-                  >
-                    <i class="bi bi-chevron-down"></i>
-                  </button>
-                </div>
-                <div class="collapse show" id="onlineCollapse">
-                  <div class="card-body">
-                    <form id="form-online" class="mb-4">
-                      <div class="row g-3">
-                        <div class="col-md-4">
-                          <label class="form-label">Método</label>
-                          <select class="form-select" id="metodo-online">
-                            <option value="MP">Mercado Pago</option>
-                            <option value="CTA_DNI">Cuenta DNI</option>
-                            <option value="QR_MP">QR MP</option>
-                            <option value="BNA_DEB">BNA Débito</option>
-                            <option value="BNA_CRE">BNA Crédito</option>
-                          </select>
-                        </div>
-                        <div class="col-md-3">
-                          <label class="form-label">Monto</label>
-                          <input
-                            type="number"
-                            class="form-control"
-                            id="monto-online"
-                            step="0.01"
-                            required
-                          />
-                        </div>
-                        <div class="col-md-3">
-                          <label class="form-label">Operaciones</label>
-                          <input
-                            type="number"
-                            class="form-control"
-                            id="operaciones-online"
-                            required
-                          />
-                        </div>
-                        <div class="col-md-2 d-flex align-items-end">
-                          <button type="submit" class="btn btn-success w-100">
-                            <i class="bi bi-plus-circle"></i> Agregar
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                    <div class="table-responsive">
-                      <table class="table table-sm table-hover">
-                        <thead class="table-light">
-                          <tr>
-                            <th>Método</th>
-                            <th>Operaciones</th>
-                            <th>Monto</th>
-                            <th>Acciones</th>
-                          </tr>
-                        </thead>
-                        <tbody id="lista-online">
-                          <!-- Movimientos se agregarán aquí -->
-                        </tbody>
-                        <tfoot class="table-primary">
-                          <tr>
-                            <th>Total</th>
-                            <th id="total-ops-online">0</th>
-                            <th id="total-monto-online">$0.00</th>
-                            <th></th>
-                          </tr>
-                        </tfoot>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
+.card:hover {
+  transform: translateY(-2px);
+  transform: translateY(-2px);
+}
 
-              <!-- Movimientos Pagos POSNET -->
-              <div class="card shadow mb-4">
-                <div
-                  class="card-header bg-danger text-white d-flex justify-content-between align-items-center"
-                >
-                  <span
-                    ><i class="bi bi-credit-card me-2"></i>Pagos POSNET</span
-                  >
-                  <button
-                    class="btn btn-sm btn-light"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#posnetCollapse"
-                  >
-                    <i class="bi bi-chevron-down"></i>
-                  </button>
-                </div>
-                <div class="collapse show" id="posnetCollapse">
-                  <div class="card-body">
-                    <form id="form-posnet" class="mb-4">
-                      <div class="row g-3">
-                        <div class="col-md-4">
-                          <label class="form-label">Tipo de Tarjeta</label>
-                          <select class="form-select" id="tipo-posnet">
-                            <option value="VISA_DEB">Visa Débito</option>
-                            <option value="VISA_CRED">Visa Crédito</option>
-                            <option value="MASTER_DEB">
-                              Mastercard Débito
-                            </option>
-                            <option value="MASTER_CRED">
-                              Mastercard Crédito
-                            </option>
-                            <option value="AMEX">American Express</option>
-                            <option value="CABAL">CABAL</option>
-                          </select>
-                        </div>
-                        <div class="col-md-3">
-                          <label class="form-label">Monto</label>
-                          <input
-                            type="number"
-                            class="form-control"
-                            id="monto-posnet"
-                            step="0.01"
-                            required
-                          />
-                        </div>
-                        <div class="col-md-3">
-                          <label class="form-label">Operaciones</label>
-                          <input
-                            type="number"
-                            class="form-control"
-                            id="operaciones-posnet"
-                            required
-                          />
-                        </div>
-                        <div class="col-md-2 d-flex align-items-end">
-                          <button type="submit" class="btn btn-danger w-100">
-                            <i class="bi bi-plus-circle"></i> Agregar
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                    <div class="table-responsive">
-                      <table class="table table-sm table-hover">
-                        <thead class="table-light">
-                          <tr>
-                            <th>Tipo</th>
-                            <th>Operaciones</th>
-                            <th>Monto</th>
-                            <th>Acciones</th>
-                          </tr>
-                        </thead>
-                        <tbody id="lista-posnet">
-                          <!-- Movimientos se agregarán aquí -->
-                        </tbody>
-                        <tfoot class="table-primary">
-                          <tr>
-                            <th>Total</th>
-                            <th id="total-ops-posnet">0</th>
-                            <th id="total-monto-posnet">$0.00</th>
-                            <th></th>
-                          </tr>
-                        </tfoot>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
+.card-header {
+  font-weight: 600;
+  border-radius: 0.5rem 0.5rem 0 0 !important;
+  font-weight: 600;
+  border-radius: 0.5rem 0.5rem 0 0 !important;
+}
 
-              <!-- Movimientos Egresos -->
-              <div class="card shadow">
-                <div
-                  class="card-header bg-warning text-dark d-flex justify-content-between align-items-center"
-                >
-                  <span><i class="bi bi-cash-coin me-2"></i>Egresos</span>
-                  <button
-                    class="btn btn-sm btn-light"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#egresosCollapse"
-                  >
-                    <i class="bi bi-chevron-down"></i>
-                  </button>
-                </div>
-                <div class="collapse show" id="egresosCollapse">
-                  <div class="card-body">
-                    <form id="form-egreso" class="mb-4">
-                      <div class="row g-3">
-                        <div class="col-md-4">
-                          <label class="form-label">Método</label>
-                          <select class="form-select" id="metodo-egreso">
-                            <option value="EFECTIVO">Efectivo</option>
-                            <option value="TRANSFERENCIA">Transferencia</option>
-                            <option value="TARJETA">Tarjeta</option>
-                          </select>
-                        </div>
-                        <div class="col-md-4">
-                          <label class="form-label">Concepto</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="concepto-egreso"
-                          />
-                        </div>
-                        <div class="col-md-2">
-                          <label class="form-label">Monto</label>
-                          <input
-                            type="number"
-                            class="form-control"
-                            id="monto-egreso"
-                            step="0.01"
-                            required
-                          />
-                        </div>
-                        <div class="col-md-2 d-flex align-items-end">
-                          <button type="submit" class="btn btn-warning w-100">
-                            <i class="bi bi-plus-circle"></i> Agregar
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                    <div class="table-responsive">
-                      <table class="table table-sm table-hover">
-                        <thead class="table-light">
-                          <tr>
-                            <th>Método</th>
-                            <th>Concepto</th>
-                            <th>Monto</th>
-                            <th>Acciones</th>
-                          </tr>
-                        </thead>
-                        <tbody id="lista-egresos">
-                          <!-- Movimientos se agregarán aquí -->
-                        </tbody>
-                        <tfoot class="table-primary">
-                          <tr>
-                            <th colspan="2">Total</th>
-                            <th id="total-monto-egresos">$0.00</th>
-                            <th></th>
-                          </tr>
-                        </tfoot>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Se mantendría la misma estructura que en tu versión original -->
-              <!-- ... -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+/* Lista de cálculos */
+.calculos-list,
+.calculos-resultados {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="app.js"></script>
-  </body>
-</html>
+/* Inputs mejorados */
+.form-control,
+.form-select {
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  padding: 0.375rem 0.75rem;
+}
+
+.input-group-text {
+  background-color: #f8f9fa;
+}
+
+/* Botones */
+.btn {
+  font-weight: 500;
+  border-radius: 0.25rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1rem;
+  }
+
+  .calculos-list,
+  .calculos-resultados {
+    margin-bottom: 1rem;
+    .card-body {
+      padding: 1rem;
+    }
+  }
+}
+/* Efectos hover para elementos interactivos */
+.btn-outline-secondary:hover {
+  background-color: var(--secondary-color);
+  color: white;
+
+  .calculos-list,
+  .calculos-resultados {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Estilos para la fecha */
+#fecha-display {
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+}
+
+/* Estilos para los totales */
+#total-calculado {
+  font-size: 1.1rem;
+}
+
+#diferencia-sistema {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Estilos para los montos */
+.text-success {
+  color: var(--success-color) !important;
+}
+
+.text-danger {
+  color: var(--danger-color) !important;
+}
+
+/* Sección de movimientos */
+#movimientos .card {
+  margin-bottom: 1.5rem;
+}
+
+#movimientos .card:last-child {
+  margin-bottom: 0;
+}
+
+/* Botones de acción en tablas */
+.btn-action {
+  padding: 0.2rem 0.4rem;
+  font-size: 0.8rem;
+}
+
+/* Estilos para los calendarios en los dropdowns */
+.dropdown-menu .pika {
+  margin: 0;
+}
+
+.pika-single {
+  border: none;
+  box-shadow: none;
+}
+/* Efectos hover para elementos interactivos */
+.btn-outline-secondary:hover {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.pika-title {
+  position: relative;
+}
+
+.pika-label {
+  display: inline-block;
+  margin: 0 30px;
+}
+
+/* Colores para fechas con planillas */
+.pika-button.has-planilla-cargar {
+  background-color: #d4edda;
+}
+
+.pika-button.has-planilla-nueva {
+  background-color: #f8d7da;
+}
+
+/* Botón personalizado */
+.pika-title .btn {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.15rem 0.5rem;
+  font-size: 0.8rem;
+}
+
+/* Estilos para impresión */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #print-section,
+  #print-section * {
+    visibility: visible;
+  }
+  #print-section {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    font-size: 12px;
+  }
+  .no-print {
+    display: none !important;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 4px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  .text-success {
+    color: #28a745 !important;
+  }
+  .text-danger {
+    color: #dc3545 !important;
+  }
+  /* Estilos para la fecha */
+  #fecha-display {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+  }
+
+  /* Estilos para los totales */
+  #total-calculado {
+    font-size: 1.1rem;
+  }
+
+  #diferencia-sistema {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+}
