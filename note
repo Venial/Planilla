@@ -1,0 +1,215 @@
+console.js:36  Failed to get latest changelog AbortError: signal is aborted without reason
+    at useChangelogAvailable.ts:78:23
+    at Tbt (react-dom.production.min.js:240:251)
+    at sbe (react-dom.production.min.js:244:163)
+    at Cte (react-dom.production.min.js:284:388)
+    at Dsi (react-dom.production.min.js:273:185)
+    at gU (react-dom.production.min.js:127:105)
+    at O_n (react-dom.production.min.js:283:470)
+    at J8 (react-dom.production.min.js:281:398)
+    at JRi (react-dom.production.min.js:270:269)
+    at C (scheduler.production.min.js:13:203)
+    at MessagePort.E (scheduler.production.min.js:14:128)
+(anonymous) @ console.js:36
+console.js:36  EntryNotFound: File does not exist
+    at NP.create (https://codesandbox.io/p/assets/vendor-165f0f95.js:696:9585)
+    at yc (https://codesandbox.io/p/assets/vendor-165f0f95.js:696:9692)
+    at https://codesandbox.io/p/assets/vendor-165f0f95.js:961:38353
+(anonymous) @ console.js:36
+index.js:101  Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://5zwv63-5000.csb.app') does not match the recipient window's origin ('https://codesandbox.io').
+(anonymous) @ index.js:101
+async.js:18  Uncaught (in promise) Canceled: Canceled
+    at v2e.value (https://codesandbox.io/p/assets/vendor-165f0f95.js:99:68064)
+    at B._deliver (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2707)
+    at B._deliverQueue (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2798)
+    at B.fire (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:3183)
+    at _2e.cancel (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:22266)
+    at Zi.cancel (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:22807)
+    at Object.cancel (https://codesandbox.io/p/assets/vendor-165f0f95.js:99:68197)
+    at https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:33198
+    at https://codesandbox.io/p/assets/vendor-165f0f95.js:93:879
+    at Object.dispose (https://codesandbox.io/p/assets/vendor-165f0f95.js:76:692)
+    at Ft (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:505)
+    at WKe.clear (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:1138)
+    at WKe.dispose (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:1048)
+    at Pe.dispose (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:1900)
+    at Ft (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:505)
+    at Ne.remove (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:36144)
+    at Ue.onDidChangeModel (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:56928)
+    at https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:56096
+    at v2e.value (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:6884)
+    at B._deliver (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2707)
+    at B.fire (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:3076)
+    at zi.setResourceMarkers (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:6704)
+    at v2e.value (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:55942)
+    at B._deliver (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2707)
+    at B.fire (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:3076)
+    at $ (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:7431)
+async.js:18  Uncaught (in promise) Canceled: Canceled
+    at v2e.value (https://codesandbox.io/p/assets/vendor-165f0f95.js:99:68064)
+    at B._deliver (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2707)
+    at B._deliverQueue (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2798)
+    at B.fire (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:3183)
+    at _2e.cancel (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:22266)
+    at Zi.cancel (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:22807)
+    at Object.cancel (https://codesandbox.io/p/assets/vendor-165f0f95.js:99:68197)
+    at https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:33198
+    at https://codesandbox.io/p/assets/vendor-165f0f95.js:93:879
+    at Object.dispose (https://codesandbox.io/p/assets/vendor-165f0f95.js:76:692)
+    at Ft (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:505)
+    at WKe.clear (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:1138)
+    at WKe.dispose (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:1048)
+    at Pe.dispose (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:1900)
+    at Ft (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:505)
+    at Ne.remove (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:36144)
+    at Ue.onDidChangeModel (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:56928)
+    at https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:56096
+    at v2e.value (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:6884)
+    at B._deliver (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2707)
+    at B.fire (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:3076)
+    at zi.setResourceMarkers (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:6704)
+    at v2e.value (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:55942)
+    at B._deliver (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2707)
+    at B.fire (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:3076)
+    at $ (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:7431)
+async.js:18  Uncaught (in promise) Canceled: Canceled
+    at v2e.value (https://codesandbox.io/p/assets/vendor-165f0f95.js:99:68064)
+    at B._deliver (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2707)
+    at B._deliverQueue (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2798)
+    at B.fire (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:3183)
+    at _2e.cancel (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:22266)
+    at Zi.cancel (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:22807)
+    at Object.cancel (https://codesandbox.io/p/assets/vendor-165f0f95.js:99:68197)
+    at https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:33198
+    at https://codesandbox.io/p/assets/vendor-165f0f95.js:93:879
+    at Object.dispose (https://codesandbox.io/p/assets/vendor-165f0f95.js:76:692)
+    at Ft (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:505)
+    at WKe.clear (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:1138)
+    at WKe.dispose (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:1048)
+    at Pe.dispose (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:1900)
+    at Ft (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:505)
+    at Ne.remove (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:36144)
+    at Ue.onDidChangeModel (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:56928)
+    at https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:56096
+    at v2e.value (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:6884)
+    at B._deliver (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2707)
+    at B.fire (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:3076)
+    at zi.setResourceMarkers (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:6704)
+    at v2e.value (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:55942)
+    at B._deliver (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2707)
+    at B.fire (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:3076)
+    at $ (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:7431)
+console.js:36  Error: Trying to add a disposable to a DisposableStore that has already been disposed of. The added object will be leaked!
+    at WKe.add (lifecycle.js:237:32)
+    at Pe._register (lifecycle.js:282:28)
+    at markersTreeViewer.js:501:41
+(anonymous) @ console.js:36
+async.js:18  Uncaught (in promise) Canceled: Canceled
+    at v2e.value (https://codesandbox.io/p/assets/vendor-165f0f95.js:99:68064)
+    at B._deliver (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2707)
+    at B._deliverQueue (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2798)
+    at B.fire (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:3183)
+    at _2e.cancel (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:22266)
+    at Zi.cancel (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:22807)
+    at Object.cancel (https://codesandbox.io/p/assets/vendor-165f0f95.js:99:68197)
+    at https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:33198
+    at https://codesandbox.io/p/assets/vendor-165f0f95.js:93:879
+    at Object.dispose (https://codesandbox.io/p/assets/vendor-165f0f95.js:76:692)
+    at Ft (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:505)
+    at WKe.clear (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:1138)
+    at WKe.dispose (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:1048)
+    at Pe.dispose (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:1900)
+    at Ft (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:505)
+    at Ne.remove (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:36144)
+    at Ue.onDidChangeModel (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:56928)
+    at https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:56096
+    at v2e.value (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:6884)
+    at B._deliver (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2707)
+    at B.fire (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:3076)
+    at zi.setResourceMarkers (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:6704)
+    at v2e.value (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:55942)
+    at B._deliver (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2707)
+    at B.fire (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:3076)
+    at $ (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:7431)
+async.js:18  Uncaught (in promise) Canceled: Canceled
+    at v2e.value (https://codesandbox.io/p/assets/vendor-165f0f95.js:99:68064)
+    at B._deliver (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2707)
+    at B._deliverQueue (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2798)
+    at B.fire (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:3183)
+    at _2e.cancel (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:22266)
+    at Zi.cancel (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:22807)
+    at Object.cancel (https://codesandbox.io/p/assets/vendor-165f0f95.js:99:68197)
+    at https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:33198
+    at https://codesandbox.io/p/assets/vendor-165f0f95.js:93:879
+    at Object.dispose (https://codesandbox.io/p/assets/vendor-165f0f95.js:76:692)
+    at Ft (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:505)
+    at WKe.clear (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:1138)
+    at WKe.dispose (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:1048)
+    at Pe.dispose (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:1900)
+    at Ft (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:505)
+    at Ne.remove (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:36144)
+    at Ue.onDidChangeModel (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:56928)
+    at https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:56096
+    at v2e.value (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:6884)
+    at B._deliver (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2707)
+    at B.fire (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:3076)
+    at zi.setResourceMarkers (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:6704)
+    at v2e.value (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:55942)
+    at B._deliver (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2707)
+    at B.fire (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:3076)
+    at $ (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:7431)
+async.js:18  Uncaught (in promise) Canceled: Canceled
+    at v2e.value (https://codesandbox.io/p/assets/vendor-165f0f95.js:99:68064)
+    at B._deliver (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2707)
+    at B._deliverQueue (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2798)
+    at B.fire (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:3183)
+    at _2e.cancel (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:22266)
+    at Zi.cancel (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:22807)
+    at Object.cancel (https://codesandbox.io/p/assets/vendor-165f0f95.js:99:68197)
+    at https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:33198
+    at https://codesandbox.io/p/assets/vendor-165f0f95.js:93:879
+    at Object.dispose (https://codesandbox.io/p/assets/vendor-165f0f95.js:76:692)
+    at Ft (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:505)
+    at WKe.clear (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:1138)
+    at WKe.dispose (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:1048)
+    at Pe.dispose (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:1900)
+    at Ft (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:505)
+    at Ne.remove (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:36144)
+    at Ue.onDidChangeModel (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:56928)
+    at https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:56096
+    at v2e.value (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:6884)
+    at B._deliver (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2707)
+    at B.fire (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:3076)
+    at zi.setResourceMarkers (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:6704)
+    at v2e.value (https://codesandbox.io/p/assets/service-overrides.workbench-6d857bed.js:1:55942)
+    at B._deliver (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:2707)
+    at B.fire (https://codesandbox.io/p/assets/vendor-165f0f95.js:95:3076)
+    at $ (https://codesandbox.io/p/assets/vendor-165f0f95.js:93:7431)
+index.js:101  Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://5zwv63-5000.csb.app') does not match the recipient window's origin ('https://codesandbox.io').
+(anonymous) @ index.js:101
+storage.js:1 
+            
+            
+            Failed to load resource: the server responded with a status of 404 ()
+storage.js:1 
+            
+            
+            Failed to load resource: the server responded with a status of 404 ()
+storage.js:1 
+            
+            
+            Failed to load resource: the server responded with a status of 404 ()
+storage.js:1 
+            
+            
+            Failed to load resource: the server responded with a status of 404 ()
+storage.js:1 
+            
+            
+            Failed to load resource: the server responded with a status of 404 ()
+
+                
+          
+          
+          
+         Microsoft Edge is moving towards a new experience that allows users to choose to browse without third-party cookies.

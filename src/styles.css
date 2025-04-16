@@ -179,57 +179,106 @@ body {
   font-size: 0.8rem;
 }
 
-/* Estilos para impresión */
+/* Estilos mejorados para impresión */
 @media print {
   body * {
     visibility: hidden;
   }
-  #print-section,
-  #print-section * {
+
+  .print-section,
+  .print-section * {
     visibility: visible;
   }
-  #print-section {
+
+  .print-section {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
-    font-size: 12px;
   }
+
   .no-print {
     display: none !important;
   }
+
+  /* Estructura de la página impresa */
+  .container-fluid {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Estilos para las secciones */
+  .print-section {
+    page-break-inside: avoid;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    break-inside: avoid;
+  }
+
+  .card {
+    border: none !important;
+    box-shadow: none !important;
+    margin-bottom: 10px;
+    page-break-inside: avoid;
+  }
+
+  .card-header {
+    background-color: #f8f9fa !important;
+    color: #000 !important;
+    border-bottom: 1px solid #ddd !important;
+    padding: 8px 15px !important;
+    font-size: 14px !important;
+  }
+
+  /* Estilos para tablas */
   table {
     width: 100%;
     border-collapse: collapse;
+    font-size: 12px;
+    margin: 10px 0;
   }
+
   th,
   td {
     border: 1px solid #ddd;
-    padding: 4px;
+    padding: 6px;
     text-align: left;
   }
+
   th {
-    background-color: #f2f2f2;
-  }
-  .text-success {
-    color: #28a745 !important;
-  }
-  .text-danger {
-    color: #dc3545 !important;
-  }
-  /* Estilos para la fecha */
-  #fecha-display {
-    font-size: 0.9rem;
-    color: var(--secondary-color);
+    background-color: #f2f2f2 !important;
   }
 
-  /* Estilos para los totales */
-  #total-calculado {
-    font-size: 1.1rem;
+  /* Ocultar botones y formularios */
+  [data-bs-toggle="collapse"],
+  form,
+  .btn {
+    display: none !important;
   }
 
-  #diferencia-sistema {
-    font-size: 1.1rem;
-    font-weight: 600;
+  /* Mostrar contenido colapsado */
+  .collapse {
+    display: block !important;
+    height: auto !important;
+  }
+
+  /* Encabezado de impresión */
+  @page {
+    size: auto;
+    margin: 10mm;
+  }
+
+  /* Mejorar visualización de datos */
+  .calculos-list div,
+  .calculos-resultados div {
+    padding: 5px 0 !important;
+    border-bottom: 1px solid #eee !important;
+  }
+
+  /* Asegurar que los totales sean visibles */
+  .table-primary {
+    background-color: #f8f9fa !important;
   }
 }
